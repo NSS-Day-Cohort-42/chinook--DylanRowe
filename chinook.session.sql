@@ -54,13 +54,23 @@ SELECT Sum(i.Total)
 FROM Invoice i
 WHERE i.InvoiceDate Like '2011%'
 
-select SUBSTR(i.InvoiceDate, 0, 5) as "Year", Count(i.InvoiceId) as "# of Invoices" 
-from Invoice i 
-where i.InvoiceDate LIKE "2009%" OR i.InvoiceDate LIKE "2011%" 
-GROUP BY SUBSTR(i.InvoiceDate, 0, 5);
-
 Select 
 (SELECT Sum(i.InvoiceDate)
 from invoice i 
-WHERE i. InvoiceDate like "2009% as Sales 2009",)
+WHERE i. InvoiceDate LIKE "2009%")
+ as "Sales 2009",
+  (SELECT SUM(i.InvoiceDate)
+ from invoice i 
+ WHERE i.InvoiceDate LIKE "2011%") 
+ AS "Sales 2011"
+
+   
+SELECT i.InvoiceId, COUNT(il.InvoiceLineId)
+FROM Invoice i
+JOIN InvoiceLine as il on il.InvoiceId = i.InvoiceId
+GROUP BY i.InvoiceId
+
+SELECT t.Name as TrackName, i.InvoiceLineId
+FROM Track as t
+Join InvoiceLine as i ON i.TrackId = t.TrackId
 
